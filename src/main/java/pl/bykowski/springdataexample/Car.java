@@ -3,6 +3,7 @@ package pl.bykowski.springdataexample;
 import javax.persistence.*;
 
 @Entity
+@Table(name="CarsDB")
 public class Car {
 
     @Id
@@ -11,16 +12,19 @@ public class Car {
 
     private String mark;
 
-    @Transient
+    //@Transient - wtedy nie zapisuje wartości w bazie danych
     private String model;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING) // zapisuje do bazy danych stringa z enuma, zamiast numeru
     private Color color;
 
-    public Car(String mark, String model, Color color) {
+    private String registrationNumber;
+
+    public Car(String mark, String model, Color color, String registrationNumber) {
         this.mark = mark;
         this.model = model;
         this.color = color;
+        this.registrationNumber = registrationNumber;
     }
 
     public Car() {
@@ -58,6 +62,10 @@ public class Car {
         this.color = color;
     }
 
+    public String getRegistrationNumber() { return registrationNumber; }
+
+    public void setRegistrationNumber(String registrationNumber) { this.registrationNumber = registrationNumber; }
+
     @Override
     public String toString() {
         return "Car{" +
@@ -65,6 +73,8 @@ public class Car {
                 ", mark='" + mark + '\'' +
                 ", model='" + model + '\'' +
                 ", color=" + color +
+                ", registrationNumber='" + registrationNumber + '\'' +
                 '}';
     }
+
 }
